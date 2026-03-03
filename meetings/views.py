@@ -10,7 +10,7 @@ def home(request):
 
 def meeting_detail(request, id):
     meeting = get_object_or_404(Meeting, pk=id)
-    return render(request, 'meetings/meeting_detail.html', {'meeting': meeting})    
+    return render(request, 'meetings/detail.html', {'meeting': meeting})
 
 def create_meeting(request):
     if request.method == 'POST':

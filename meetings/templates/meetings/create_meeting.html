@@ -38,6 +38,14 @@
             box-sizing: border-box;
             font-size: 14px;
         }
+        input[type="text"], input[type="date"], input[type="time"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
         textarea {
             resize: vertical;
             min-height: 100px;
@@ -59,41 +67,54 @@
 <body>
     <div class="container">
         <h1>Schedule a New Meeting</h1>
+
+        {% if form.errors %}
+            <div style="color:red; background-color: #ffe6e6; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+                <h3>Errors:</h3>
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        <li><strong>{{ field }}:</strong> {{ errors|join:", " }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
         <form method="post">
             {% csrf_token %}
+
             <div class="form-group">
-                <label for="title">Meeting Title</label>
-                <input type="text" id="title" name="title" required>
+                <label for="{{ form.title.id_for_label }}">Meeting Title</label>
+                {{ form.title }}
             </div>
+
             <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" name="description"></textarea>
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
             </div>
+
             <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" id="date" name="date" required>
+                <label for="{{ form.date.id_for_label }}">Date</label>
+                {{ form.date }}
             </div>
+
             <div class="form-group">
-                <label for="start_time">Start Time</label>
-                <input type="time" id="start_time" name="start_time" required>
+                <label for="{{ form.start_time.id_for_label }}">Start Time</label>
+                {{ form.start_time }}
             </div>
+
             <div class="form-group">
-                <label for="room">Room</label>
-                <input type="text" id="room" name="room">
+                <label for="{{ form.duration.id_for_label }}">Duration</label>
+                {{ form.duration }}
             </div>
+
+            <div class="form-group">
+                <label for="{{ form.room.id_for_label }}">Room</label>
+                {{ form.room }}
+            </div>
+
             <button type="submit">Create Meeting</button>
         </form>
     </div>
-    {% if form.errors %}
-        <div style="color:red;">
-            <h3>Errors:</h3>
-            <ul>
-                {% for field, errors in form.errors.items %}
-                    <li><strong>{{ field }}:</strong> {{ errors|join:", " }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
 
     <p><a href="{% url 'home' %}">Back to Home</a></p>
 </body>
