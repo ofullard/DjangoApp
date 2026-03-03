@@ -1,4 +1,6 @@
-# Django Project
+# Django Project - Meeting Planner 
+
+![evenplanner](https://github.com/user-attachments/assets/2ba3c91b-ef00-4f81-99f7-db4a0d5a662b)
 
 This is a basic template for a Django project.
 
